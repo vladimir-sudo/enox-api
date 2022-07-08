@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Services\User\CustomerService;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Serializer\Serializer;
@@ -29,7 +30,9 @@ class CustomerController extends AbstractController
         $serializedEntity = $serializer
             ->serialize($users, 'json', ['groups' => 'list']);
 
-        return new JsonResponse($serializedEntity);
+        return new Response($serializedEntity, 200, [
+            'content-type' => 'application/json'
+        ]);
     }
 
     /**
@@ -44,6 +47,8 @@ class CustomerController extends AbstractController
         $serializedEntity = $serializer
             ->serialize($user, 'json', ['groups' => 'single']);
 
-        return new JsonResponse($serializedEntity);
+        return new Response($serializedEntity, 200, [
+            'content-type' => 'application/json'
+        ]);
     }
 }
